@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 定义日志输出格式 -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+
+    <!-- 定义日志文件存储路径，默认为当前目录下的 logs 文件夹 -->
+    <property name="LOG_DIR" value="./logs"/>
+
+    <!-- 1. 控制台输出配置 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 2. 文件输出配置 (按天滚动) -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志文件路径 -->
+        <file>${LOG_DIR}/application.log</file>
+
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+
+        <!-- 滚动策略：按天创建新文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 历史日志文件命名格式，%d{yyyy-MM-dd} 代表按天分割 -->
+            <fileNamePattern>${LOG_DIR}/application.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 保留最近30天的日志文件 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 3. 设置日志级别 -->
+    <!--
+         root 标签设置全局日志级别为 INFO，并引用上面定义的两个输出源 (CONSOLE 和 FILE)
+         这意味着 INFO 级别及以上的日志会同时输出到控制台和文件
+    -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+    <!--
+        可以为特定的包或类设置更详细的日志级别，例如将你的项目日志级别设为 DEBUG
+        <logger name="com.redbook.redbook" level="DEBUG"/>
+    -->
+</configuration>

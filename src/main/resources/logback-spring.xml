@@ -38,7 +38,7 @@
          root 标签设置全局日志级别为 INFO，并引用上面定义的两个输出源 (CONSOLE 和 FILE)
          这意味着 INFO 级别及以上的日志会同时输出到控制台和文件
     -->
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </root>
@@ -47,4 +47,13 @@
         可以为特定的包或类设置更详细的日志级别，例如将你的项目日志级别设为 DEBUG
         <logger name="com.redbook.redbook" level="DEBUG"/>
     -->
+
+<!--    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <encoder charset="UTF-8">-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n</pattern>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+<!--    <root level="DEBUG">-->
+<!--        <appender-ref ref="CONSOLE"/>-->
+<!--    </root>-->
 </configuration>
